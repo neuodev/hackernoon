@@ -14,9 +14,12 @@ export default class PostResolver {
     @Arg('title') title: string,
     @Ctx() ctx: MyContext
   ): Promise<Post | null> {
-    if (!ctx.req.session!.userId) return null;
+    if (!ctx.req.session!.userId)
+      throw new Error('Session Expired, Try to login ');
 
     const user = await User.findOne(ctx.req.session!.userId);
+
+    if (!user) throw new Error('User Not Found');
 
     const post = await Post.create({
       title,
