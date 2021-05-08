@@ -2,7 +2,7 @@ import 'reflect-metadata';
 
 import { ApolloServer } from 'apollo-server-express';
 import Express from 'express';
-import { buildSchema, ArgumentValidationError } from 'type-graphql';
+import { buildSchema } from 'type-graphql';
 import { createConnection } from 'typeorm';
 import Register from './modules/user/Register';
 import session from 'express-session';
@@ -10,13 +10,16 @@ import connectRedis from 'connect-redis';
 import { redis } from './redis';
 import cors from 'cors';
 import Login from './modules/user/Login';
+import Me from './modules/user/Me';
+
+
 const main = async () => {
   //  connect to the db
   await createConnection();
 
   // define schema
   const schema = await buildSchema({
-    resolvers: [Register, Login],
+    resolvers: [Register, Login, Me],
   });
 
   const apolloServer = new ApolloServer({
