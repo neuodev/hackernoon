@@ -11,15 +11,14 @@ class Register {
 
   @Mutation(() => User)
   async register(
-    @Arg('data') { firstName, lastName, password, email }: RegisterInput
+    @Arg('data') { username, password, email }: RegisterInput
   ): Promise<User> {
     //   hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
     //  create the user
 
     const user = await User.create({
-      firstName,
-      lastName,
+      username,
       password: hashedPassword,
       email,
     }).save();

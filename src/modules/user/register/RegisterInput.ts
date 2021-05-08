@@ -4,13 +4,9 @@ import { IsUserAlreadyExist } from './isUserAlreadyExist';
 
 @InputType()
 export class RegisterInput {
-  @Length(3, 50)
+  @Length(3, 255)
   @Field()
-  firstName: string;
-
-  @Length(3, 50)
-  @Field()
-  lastName: string;
+  username: string;
 
   @IsEmail()
   @IsUserAlreadyExist({

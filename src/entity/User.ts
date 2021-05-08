@@ -9,20 +9,11 @@ export class User extends BaseEntity {
   id: number;
   @Field()
   @Column()
-  firstName: string;
-
-  @Field()
-  @Column()
-  lastName: string;
+  username: string;
 
   @Field()
   @Column('text', { unique: true })
   email: string;
-
-  @Field()
-  name(@Root() parent: User): string {
-    return `${parent.firstName} ${parent.lastName}`;
-  }
 
   @Column()
   password: string;
