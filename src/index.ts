@@ -12,6 +12,7 @@ import cors from 'cors';
 import Login from './modules/user/Login';
 import Me from './modules/user/Me';
 import PostResolver from './modules/post/Post';
+import { Logout } from './modules/user/Logout';
 
 const main = async () => {
   try {
@@ -20,7 +21,7 @@ const main = async () => {
 
     // define schema
     const schema = await buildSchema({
-      resolvers: [Register, Login, Me, PostResolver],
+      resolvers: [Register, Login, Logout, Me, PostResolver],
     });
 
     const apolloServer = new ApolloServer({
