@@ -20,9 +20,9 @@ class Login {
     });
 
     // Validation
-    if (!user) return null;
+    if (!user) throw new Error('Invalid credentials');
     const valid = await bcrypt.compare(password, user.password);
-    if (!valid) return null;
+    if (!valid) throw new Error('Invalid credentials');
     //   send the sesstion
     ctx.req.session!.userId! = user.id;
 
