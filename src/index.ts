@@ -2,7 +2,7 @@ import 'reflect-metadata';
 
 import { ApolloServer } from 'apollo-server-express';
 import Express from 'express';
-import { buildSchema } from 'type-graphql';
+import { buildSchema , ArgumentValidationError} from 'type-graphql';
 import { createConnection } from 'typeorm';
 import Register from './modules/user/Register';
 
