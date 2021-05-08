@@ -90,7 +90,7 @@ export default class PostResolver {
     if (!post)
       return {
         success: false,
-        message: "User or the post is n't exist",
+        message: "User or the post does n't exist",
       };
 
     // delete the post
