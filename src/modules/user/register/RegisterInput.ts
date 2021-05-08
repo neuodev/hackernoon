@@ -13,7 +13,9 @@ export class RegisterInput {
   lastName: string;
 
   @IsEmail()
-  @IsUserAlreadyExist()
+  @IsUserAlreadyExist({
+    message: 'User Already exist',
+  })
   @Field()
   email: string;
 

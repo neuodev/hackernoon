@@ -27,7 +27,7 @@ export function IsUserAlreadyExist(validationOptions?: ValidationOptions) {
       target: object.constructor,
       propertyName: propertyName,
       options: validationOptions,
-      constraints: ['User already exist'],
+      constraints: [],
       validator: IsUserAlreadyExistConstraint,
     });
   };
