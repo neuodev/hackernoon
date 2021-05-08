@@ -3,6 +3,7 @@ import { MyContext } from '../../types/MyContext';
 import { Arg, Ctx, Mutation, Query, Resolver } from 'type-graphql';
 import { User } from '../../entity/User';
 import { EditPostInput } from './post/EditPostInput';
+import { ResponseMessage, ResponseMessageType } from '../../types/Response';
 
 @Resolver()
 export default class PostResolver {
@@ -38,7 +39,7 @@ export default class PostResolver {
     @Arg('data') { postId, title }: EditPostInput,
     @Ctx() ctx: MyContext
   ): Promise<Post | null> {
-    if (!ctx.req.session) return null;
+    if (!ctx.req.session) throw new Error('Session Expired, Try to login ');
     const userId = ctx.req.session!.userId;
 
     // check for the user and the post
@@ -52,7 +53,7 @@ export default class PostResolver {
       },
     });
 
-    if (!post) return null;
+    if (!post) throw new Error('Post Not Found');
 
     post.title = title;
     post.save();
@@ -60,12 +61,16 @@ export default class PostResolver {
     return post;
   }
 
-  @Mutation(() => String)
+  @Mutation(() => ResponseMessageType)
   async deletePost(
     @Arg('postId') postId: string,
     @Ctx() ctx: MyContext
-  ): Promise<string> {
-    if (!ctx.req.session) return 'session is expired';
+  ): Promise<ResponseMessage> {
+    if (!ctx.req.session)
+      return {
+        success: false,
+        message: 'Session expired, Try to login',
+      };
     const userId = ctx.req.session!.userId;
 
     // check if the user and the post exist
@@ -79,10 +84,17 @@ export default class PostResolver {
         },
       },
     });
-    if (!post) return "User or the post is n't exist";
+    if (!post)
+      return {
+        success: false,
+        message: "User or the post is n't exist",
+      };
 
     // delete the post
     post.remove();
-    return 'success';
+    return {
+      success: true,
+      message: 'Post deleted successfully',
+    };
   }
 }
