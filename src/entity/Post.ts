@@ -1,5 +1,6 @@
-import { Field, ObjectType } from 'type-graphql';
+import { Field, ID, ObjectType } from 'type-graphql';
 import {
+  BaseEntity,
   Column,
   Entity,
   JoinColumn,
@@ -10,18 +11,25 @@ import { User } from './User';
 
 @Entity()
 @ObjectType()
-export class Post {
-  @Field()
+export class Post extends BaseEntity {
+  @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Field()
   @Column('text', {
     nullable: false,
   })
-  @Field()
-  post: string;
+  title: string;
 
+  @Field()
   @OneToOne(() => User)
   @JoinColumn()
-  user: User;
+  by: User;
+
+  @Field()
+  @Column('date', {
+    default: new Date(),
+  })
+  date: string;
 }

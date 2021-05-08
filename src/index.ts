@@ -11,7 +11,7 @@ import { redis } from './redis';
 import cors from 'cors';
 import Login from './modules/user/Login';
 import Me from './modules/user/Me';
-
+import PostResolver from './modules/post/Post';
 
 const main = async () => {
   //  connect to the db
@@ -19,7 +19,7 @@ const main = async () => {
 
   // define schema
   const schema = await buildSchema({
-    resolvers: [Register, Login, Me],
+    resolvers: [Register, Login, Me, PostResolver],
   });
 
   const apolloServer = new ApolloServer({
