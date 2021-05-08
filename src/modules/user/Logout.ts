@@ -10,9 +10,11 @@ export class Logout {
       return ctx.req.session!.destroy(err => {
         if (err) {
           console.log(err.message);
-          rej(false);
+          return rej(false);
         }
-        res(true);
+        // clear the cookie
+        ctx.res.clearCookie('Auth');
+        return res(true);
       });
     });
   }
