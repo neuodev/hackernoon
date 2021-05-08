@@ -11,10 +11,13 @@ class MeRe {
     if (!ctx.req.session) return null;
     const id = ctx.req.session!.userId;
     const user = await User.findOne({
+      relations: ['posts'],
       where: {
-        id,
+        id: id,
       },
     });
+    console.log(user);
+
     if (!user) return null;
 
     return user;

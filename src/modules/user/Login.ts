@@ -13,6 +13,7 @@ class Login {
     @Ctx() ctx: MyContext
   ): Promise<User | null> {
     const user = await User.findOne({
+      relations: ['posts'],
       where: {
         email,
       },
@@ -24,7 +25,6 @@ class Login {
     if (!valid) return null;
     //   send the sesstion
     ctx.req.session!.userId! = user.id;
-   
 
     return user;
   }

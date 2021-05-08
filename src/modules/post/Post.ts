@@ -9,7 +9,7 @@ export default class PostResolver {
     nullable: true,
   })
   async createPost(
-    @Arg('post') text: string,
+    @Arg('title') title: string,
     @Ctx() ctx: MyContext
   ): Promise<Post | null> {
     if (!ctx.req.session!.userId) return null;
@@ -17,8 +17,8 @@ export default class PostResolver {
     const user = await User.findOne(ctx.req.session!.userId);
 
     const post = await Post.create({
-      title: text,
-      by: user,
+      title,
+      user: user,
     }).save();
 
     return post;

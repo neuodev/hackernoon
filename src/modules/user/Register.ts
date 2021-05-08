@@ -21,7 +21,9 @@ class Register {
       username,
       password: hashedPassword,
       email,
+      posts: [],
     }).save();
+    user.posts = [];
     return user;
   }
 }

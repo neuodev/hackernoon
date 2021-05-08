@@ -4,7 +4,7 @@ import {
   Column,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from './User';
@@ -22,10 +22,14 @@ export class Post extends BaseEntity {
   })
   title: string;
 
-  @Field()
-  @OneToOne(() => User)
-  @JoinColumn()
-  by: User;
+  @Field(() => User, {
+    nullable: false,
+  })
+  @ManyToOne(() => User, user => user.posts)
+  @JoinColumn({
+    name: 'user_id',
+  })
+  user: User;
 
   @Field()
   @Column('date', {

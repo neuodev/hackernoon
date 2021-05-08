@@ -3,6 +3,7 @@ import {
   BaseEntity,
   Column,
   Entity,
+  JoinColumn,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -14,6 +15,7 @@ export class User extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: number;
+
   @Field()
   @Column()
   username: string;
@@ -25,6 +27,9 @@ export class User extends BaseEntity {
   @Column()
   password: string;
 
-  @OneToMany(() => Post, post => post.by)
+  @Field(() => [Post], {
+    nullable: true,
+  })
+  @OneToMany(() => Post, (post: Post) => post.user)
   posts: Post[];
 }
