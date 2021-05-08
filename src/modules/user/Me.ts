@@ -17,7 +17,7 @@ class MeRe {
       },
     });
 
-    if (!user) return null;
+    if (!user) throw new Error('User Not Found');
 
     return user;
   }
