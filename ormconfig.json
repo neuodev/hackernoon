@@ -4,7 +4,7 @@
   "host": "localhost",
   "port": 5432,
   "username": "postgres",
-  "password": "123456seven",
+  "password": "yourPassword",
   "database": "main-db",
 
   "synchronize": true,
