@@ -3,6 +3,7 @@ import { Arg, Mutation, Resolver } from 'type-graphql';
 import { createConfirmationUrl } from '../utils/createConfirmUrl';
 import { sendEmail } from '../utils/sendEmail';
 import { redis } from '../../redis';
+import { ForgetPasswordInput } from './forgetPassword/forgetPasswordInput';
 
 @Resolver()
 export class ForgetPasswordResolver {
@@ -23,8 +24,7 @@ export class ForgetPasswordResolver {
 
   @Mutation(() => Boolean)
   async changePassword(
-    @Arg('token') token: string,
-    @Arg('password') newPassword: string
+    @Arg('data') { token, newPassword }: ForgetPasswordInput
   ) {
     const id = await redis.get(token);
     if (!id) throw new Error('Invalid token');
