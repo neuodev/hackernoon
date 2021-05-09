@@ -2,6 +2,7 @@ import { Arg, Mutation, Query, Resolver } from 'type-graphql';
 import bcrypt from 'bcryptjs';
 import { User } from '../../entity/User';
 import { RegisterInput } from './register/RegisterInput';
+import { sendEmail } from '../utils/sendEmail';
 @Resolver(User)
 class Register {
   @Query(() => String)
@@ -23,7 +24,11 @@ class Register {
       email,
       posts: [],
     }).save();
+
     user.posts = [];
+
+    // Confirm the email
+    await sendEmail(email, 'http://localhost');
     return user;
   }
 }
