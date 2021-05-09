@@ -15,10 +15,13 @@ class Register {
   async register(
     @Arg('data') { username, password, email }: RegisterInput
   ): Promise<User> {
+    console.log('hello world');
+
     //   hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    //  create the user
 
+
+    //  create the user
     const user = await User.create({
       username,
       password: hashedPassword,
@@ -30,6 +33,7 @@ class Register {
 
     // Confirm the email
     await sendEmail(email, await createConfirmationUrl(user.id));
+
     return user;
   }
 }
