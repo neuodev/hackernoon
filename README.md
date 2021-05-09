@@ -1,4 +1,4 @@
-# hackernoon
+# Hackernoon
 Backend for blog platform.
 
 Support
