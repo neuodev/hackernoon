@@ -13,6 +13,7 @@ import Login from './modules/user/Login';
 import Me from './modules/user/Me';
 import PostResolver from './modules/post/Post';
 import { Logout } from './modules/user/Logout';
+import ConfirmEmailResover from './modules/user/ConfirmEmailResolver';
 
 //  to access self-signed server that accept email
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -24,7 +25,14 @@ const main = async () => {
 
     // define schema
     const schema = await buildSchema({
-      resolvers: [Register, Login, Logout, Me, PostResolver],
+      resolvers: [
+        Register,
+        ConfirmEmailResover,
+        Login,
+        Logout,
+        Me,
+        PostResolver,
+      ],
       authChecker: ({ context: { req } }) => {
         return !!req.session.userId;
       },
