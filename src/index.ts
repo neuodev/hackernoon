@@ -14,6 +14,7 @@ import Me from './modules/user/Me';
 import PostResolver from './modules/post/Post';
 import { Logout } from './modules/user/Logout';
 import ConfirmEmailResover from './modules/user/ConfirmEmailResolver';
+import { ForgetPasswordResolver } from './modules/user/ForgetPassword';
 
 //  to access self-signed server that accept email
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -28,6 +29,7 @@ const main = async () => {
       resolvers: [
         Register,
         ConfirmEmailResover,
+        ForgetPasswordResolver,
         Login,
         Logout,
         Me,
