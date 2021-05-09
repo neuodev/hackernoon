@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import { User } from '../../entity/User';
 import { RegisterInput } from './register/RegisterInput';
 import { sendEmail } from '../utils/sendEmail';
+import { createConfirmationUrl } from '../utils/createConfirmUrl';
 @Resolver(User)
 class Register {
   @Query(() => String)
@@ -28,7 +29,7 @@ class Register {
     user.posts = [];
 
     // Confirm the email
-    await sendEmail(email, 'http://localhost');
+    await sendEmail(email, await createConfirmationUrl(user.id));
     return user;
   }
 }
