@@ -10,4 +10,4 @@ Support
     5.Forget Password, Change Password,
     6.Edit post, get all posts, get all post for user.
        
-### Build on top Node.js, Express, TypeGraphQL, TypeORM, Redis, Express-Cookies, Nodemailer, PostgresQL
+### Built on top Node.js, Express, TypeGraphQL, TypeORM, Redis, Express-Cookies, Nodemailer, PostgresQL
