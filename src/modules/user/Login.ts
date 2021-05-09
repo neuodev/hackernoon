@@ -23,6 +23,9 @@ class Login {
     if (!user) throw new Error('Invalid credentials');
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) throw new Error('Invalid credentials');
+
+    if (!user.confirmed)
+      throw new Error('Confirm you email before going forward');
     //   send the sesstion
     ctx.req.session!.userId! = user.id;
 

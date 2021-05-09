@@ -32,4 +32,9 @@ export class User extends BaseEntity {
   })
   @OneToMany(() => Post, (post: Post) => post.user)
   posts: Post[];
+
+  @Column('boolean', {
+    default: false,
+  })
+  confirmed: boolean;
 }
