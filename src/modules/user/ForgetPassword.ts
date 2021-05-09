@@ -4,7 +4,7 @@ import { createConfirmationUrl } from '../utils/createConfirmUrl';
 import { sendEmail } from '../utils/sendEmail';
 import { redis } from '../../redis';
 import { ForgetPasswordInput } from './forgetPassword/forgetPasswordInput';
-
+import bcrypt from 'bcryptjs';
 @Resolver()
 export class ForgetPasswordResolver {
   @Mutation(() => Boolean)
@@ -37,11 +37,18 @@ export class ForgetPasswordResolver {
 
     if (!user) throw new Error('User not found');
 
-    const update = await User.update(
+    // hash  the password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    // update user password
+    await User.update(
       {
-        id: parseInt(id),
+        id: id as any,
       },
-      { password: newPassword }
+      { password: hashedPassword }
     );
+
+    // remove the token
+    await redis.del(token);
+    return true;
   }
 }
